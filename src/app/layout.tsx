@@ -13,6 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://ayush-aggarwal.vercel.app"),
   title: "Ayush Aggarwal — Software Engineer",
   description:
     "Software Engineer II at Ellucian building backend services, cloud infrastructure, and data platforms on AWS. Lakehouse analytics, serverless architectures, Node.js, Python, React.",
@@ -24,11 +25,20 @@ export const metadata: Metadata = {
     "Cloud Infrastructure",
     "Data Platforms",
   ],
+  alternates: { canonical: "/" },
   openGraph: {
     title: "Ayush Aggarwal — Software Engineer",
     description:
       "Backend services, cloud infrastructure, and data platforms on AWS.",
+    url: "https://ayush-aggarwal.vercel.app",
+    siteName: "Ayush Aggarwal",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ayush Aggarwal — Software Engineer",
+    description:
+      "Backend services, cloud infrastructure, and data platforms on AWS.",
   },
 };
 

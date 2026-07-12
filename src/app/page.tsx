@@ -1,3 +1,4 @@
+import CountUp from "@/components/CountUp";
 import Effects from "@/components/Effects";
 import Nav from "@/components/Nav";
 import Typer from "@/components/Typer";
@@ -52,9 +53,29 @@ const mailIcon = (
   </svg>
 );
 
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: profile.name,
+  jobTitle: profile.role,
+  worksFor: { "@type": "Organization", name: profile.company },
+  url: "https://ayush-aggarwal.vercel.app",
+  sameAs: [profile.linkedin, profile.github].filter(Boolean),
+  email: `mailto:${profile.email}`,
+  alumniOf: [
+    { "@type": "CollegeOrUniversity", name: "Virginia Tech" },
+    { "@type": "CollegeOrUniversity", name: "GGSIP University" },
+  ],
+  knowsAbout: ["AWS", "Backend Engineering", "Cloud Infrastructure", "Data Platforms", "React", "Node.js", "Python"],
+};
+
 export default function Home() {
   return (
     <div id="top" className="relative">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+      />
       <Effects />
       <Nav />
 
@@ -186,7 +207,9 @@ export default function Home() {
                   data-reveal
                   style={{ "--reveal-delay": `${i * 90}ms` } as React.CSSProperties}
                 >
-                  <div className="text-gradient text-3xl font-bold">{s.value}</div>
+                  <div className="text-gradient text-3xl font-bold">
+                    <CountUp value={s.value} />
+                  </div>
                   <div className="mt-1 text-xs leading-relaxed text-slate-400">{s.label}</div>
                 </div>
               ))}
@@ -397,7 +420,15 @@ export default function Home() {
       </main>
 
       <footer className="relative z-10 border-t border-line py-8 text-center font-mono text-xs text-slate-600">
-        Designed & built by Ayush Aggarwal · Next.js on Vercel
+        Designed & built by Ayush Aggarwal ·{" "}
+        <a
+          href="https://github.com/ayush51/my-portfolio"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline decoration-slate-700 underline-offset-4 transition-colors hover:text-slate-400"
+        >
+          view source
+        </a>
       </footer>
     </div>
   );
