@@ -1,12 +1,10 @@
 import CountUp from "@/components/CountUp";
 import Effects from "@/components/Effects";
 import Nav from "@/components/Nav";
-import Typer from "@/components/Typer";
 import {
   profile,
   stats,
   skills,
-  marquee,
   experience,
   earlierRoles,
   projects,
@@ -53,6 +51,12 @@ const mailIcon = (
   </svg>
 );
 
+const arrowIcon = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="size-4" aria-hidden>
+    <path d="M7 17 17 7M9 7h8v8" />
+  </svg>
+);
+
 const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -89,7 +93,7 @@ export default function Home() {
 
       <main className="relative z-10 mx-auto max-w-6xl px-6">
         {/* ============ HERO ============ */}
-        <section className="flex min-h-svh flex-col justify-center pt-24 pb-16">
+        <section className="flex min-h-[82svh] flex-col justify-center pt-28 pb-12">
           <p className="mb-5 font-mono text-sm text-cyan-300" data-reveal>
             Hi, my name is
           </p>
@@ -105,7 +109,8 @@ export default function Home() {
             data-reveal
             style={{ "--reveal-delay": "160ms" } as React.CSSProperties}
           >
-            I build <Typer words={profile.typerWords} /> on AWS.
+            I build <span className="text-gradient">cloud infrastructure</span> &{" "}
+            <span className="text-gradient">data platforms</span>.
           </h2>
           <p
             className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-400"
@@ -120,10 +125,10 @@ export default function Home() {
             style={{ "--reveal-delay": "320ms" } as React.CSSProperties}
           >
             <a
-              href="#experience"
+              href="#projects"
               className="rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 px-6 py-3 text-sm font-semibold text-white transition-all hover:shadow-[0_0_32px_rgba(99,102,241,0.5)]"
             >
-              See my work
+              View projects
             </a>
             <a
               href={`mailto:${profile.email}`}
@@ -145,10 +150,27 @@ export default function Home() {
               </a>
             </div>
           </div>
+
+          {/* proof strip */}
           <div
-            className="mt-14 flex items-center gap-3 font-mono text-xs text-slate-500"
+            className="mt-12 grid max-w-3xl grid-cols-2 gap-x-10 gap-y-6 sm:grid-cols-4"
             data-reveal
             style={{ "--reveal-delay": "400ms" } as React.CSSProperties}
+          >
+            {stats.map((s) => (
+              <div key={s.label}>
+                <div className="text-gradient text-2xl font-bold sm:text-3xl">
+                  <CountUp value={s.value} />
+                </div>
+                <div className="mt-1 text-xs leading-snug text-slate-500">{s.label}</div>
+              </div>
+            ))}
+          </div>
+
+          <div
+            className="mt-12 flex items-center gap-3 font-mono text-xs text-slate-500"
+            data-reveal
+            style={{ "--reveal-delay": "480ms" } as React.CSSProperties}
           >
             <span className="relative flex size-2">
               <span className="pulse-dot relative inline-flex size-2 rounded-full bg-cyan-400" />
@@ -157,71 +179,71 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ============ MARQUEE ============ */}
-        <div className="marquee relative -mx-6 overflow-hidden border-y border-line py-4 [mask-image:linear-gradient(90deg,transparent,black_15%,black_85%,transparent)]" data-reveal>
-          <div className="marquee-track">
-            {[...marquee, ...marquee].map((item, i) => (
-              <span key={i} className="font-mono text-sm text-slate-500">
-                {item}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* ============ ABOUT / STATS ============ */}
-        <section id="about" className="scroll-mt-28 py-24">
-          <SectionHeading index="01" title="About" />
-          <div className="grid gap-10 lg:grid-cols-5">
-            <div className="space-y-4 text-lg leading-relaxed text-slate-400 lg:col-span-3" data-reveal>
-              <p>
-                I&apos;m a software engineer with{" "}
-                <span className="text-slate-200">4+ years of experience</span>{" "}
-                across backend, platform, and cloud infrastructure work. Right now I&apos;m at{" "}
-                <span className="text-slate-200">Ellucian</span>, where I designed the
-                architecture and access-control model for a{" "}
-                <span className="text-slate-200">lakehouse analytics platform</span> — moving
-                reporting workloads from Postgres to S3 Iceberg tables queried through Athena,
-                governed by IAM and Lake Formation.
-              </p>
-              <p>
-                Before that I was at <span className="text-slate-200">ZS Associates</span>,
-                migrating legacy data pipelines to AWS, and at{" "}
-                <span className="text-slate-200">Virginia Tech</span> earning an M.Eng in
-                Computer Science (3.96 GPA) while working as a Graduate Research Assistant on AI
-                in design and full-stack development.
-              </p>
-              <p>
-                I&apos;m full-stack by range — React and TypeScript on the front,{" "}
-                Python and Node.js APIs behind it — but{" "}
-                <span className="text-slate-200">backend and cloud infrastructure</span> is
-                where I go deepest. I like problems at the intersection of data,
-                infrastructure, and product, and I have a habit of automating away whatever
-                slows a team down.
-              </p>
-            </div>
-            <div className="grid grid-cols-2 gap-4 self-start lg:col-span-2">
-              {stats.map((s, i) => (
-                <div
-                  key={s.label}
-                  className="card p-5"
+        {/* ============ PROJECTS ============ */}
+        <section id="projects" className="scroll-mt-28 py-20">
+          <SectionHeading index="01" title="Projects" />
+          <div className="grid gap-6 sm:grid-cols-2">
+            {projects.map((p, i) => {
+              const href = p.link || p.repo;
+              return (
+                <article
+                  key={p.title}
+                  className="card group flex flex-col overflow-hidden"
                   data-reveal
                   style={{ "--reveal-delay": `${i * 90}ms` } as React.CSSProperties}
                 >
-                  <div className="text-gradient text-3xl font-bold">
-                    <CountUp value={s.value} />
+                  <div
+                    className="flex h-28 items-center justify-between px-6"
+                    style={{ background: p.accent }}
+                  >
+                    <span className="font-mono text-4xl text-white/70 select-none">{p.glyph}</span>
+                    <span className="rounded-full bg-black/30 px-2.5 py-1 font-mono text-[11px] text-slate-200 backdrop-blur">
+                      {p.badge}
+                    </span>
                   </div>
-                  <div className="mt-1 text-xs leading-relaxed text-slate-400">{s.label}</div>
-                </div>
-              ))}
-            </div>
+                  <div className="flex flex-1 flex-col p-6">
+                    <div className="flex items-start justify-between gap-3">
+                      <h3 className="text-lg font-semibold text-slate-100 transition-colors group-hover:text-indigo-200">
+                        {href ? (
+                          <a href={href} target="_blank" rel="noopener noreferrer">
+                            {p.title}
+                          </a>
+                        ) : (
+                          p.title
+                        )}
+                      </h3>
+                      {href && (
+                        <a
+                          href={href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-1 shrink-0 text-slate-500 transition-colors hover:text-cyan-300"
+                          aria-label={`Open ${p.title}`}
+                        >
+                          {arrowIcon}
+                        </a>
+                      )}
+                    </div>
+                    <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-400">
+                      {p.description}
+                    </p>
+                    <div className="mt-5 flex flex-wrap gap-2">
+                      {p.tech.map((t) => (
+                        <Chip key={t}>{t}</Chip>
+                      ))}
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </section>
 
         {/* ============ EXPERIENCE ============ */}
-        <section id="experience" className="scroll-mt-28 py-24">
+        <section id="experience" className="scroll-mt-28 py-20">
           <SectionHeading index="02" title="Experience" />
-          <div className="relative space-y-12 before:absolute before:top-2 before:bottom-2 before:left-[7px] before:w-px before:bg-gradient-to-b before:from-indigo-400/50 before:via-line before:to-transparent">
-            {experience.map((job, i) => (
+          <div className="relative space-y-10 before:absolute before:top-2 before:bottom-2 before:left-[7px] before:w-px before:bg-gradient-to-b before:from-indigo-400/50 before:via-line before:to-transparent">
+            {experience.map((job) => (
               <article key={`${job.company}-${job.period}`} className="relative pl-10" data-reveal>
                 <span
                   className={`absolute top-2 left-0 size-[15px] rounded-full border-2 ${
@@ -239,7 +261,6 @@ export default function Home() {
                     </h3>
                     <span className="font-mono text-xs text-slate-500">{job.period}</span>
                   </div>
-                  <p className="mt-1 font-mono text-xs text-slate-500">{job.location}</p>
                   <ul className="mt-5 space-y-3">
                     {job.points.map((point, j) => (
                       <li key={j} className="flex gap-3 text-[15px] leading-relaxed text-slate-400">
@@ -258,70 +279,28 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="mt-14" data-reveal>
-            <h3 className="mb-5 font-mono text-sm tracking-wide text-slate-500 uppercase">
-              Earlier internships
-            </h3>
-            <div className="grid gap-4 sm:grid-cols-3">
+          <div className="mt-10 flex flex-wrap items-center justify-between gap-4" data-reveal>
+            <div className="flex flex-wrap gap-x-8 gap-y-2 font-mono text-xs text-slate-500">
               {earlierRoles.map((r) => (
-                <div key={r.company} className="card p-5">
-                  <div className="text-sm font-semibold text-slate-200">{r.company}</div>
-                  <div className="mt-0.5 font-mono text-xs text-slate-500">
-                    {r.role} · {r.period}
-                  </div>
-                  <p className="mt-3 text-sm leading-relaxed text-slate-400">{r.note}</p>
-                </div>
+                <span key={r.company}>
+                  {r.company} · {r.role.replace("Software Developer ", "")} · {r.period}
+                </span>
               ))}
             </div>
-          </div>
-        </section>
-
-        {/* ============ PROJECTS ============ */}
-        <section id="projects" className="scroll-mt-28 py-24">
-          <SectionHeading index="03" title="Projects" />
-          <div className="grid gap-6 md:grid-cols-3">
-            {projects.map((p, i) => (
-              <article
-                key={p.title}
-                className="card group flex flex-col p-6"
-                data-reveal
-                style={{ "--reveal-delay": `${i * 100}ms` } as React.CSSProperties}
-              >
-                <div className="flex items-center justify-between">
-                  <span className="rounded-full bg-indigo-400/10 px-2.5 py-1 font-mono text-[11px] text-indigo-300">
-                    {p.badge}
-                  </span>
-                  {(p.link || p.repo) && (
-                    <a
-                      href={p.link || p.repo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-slate-500 transition-colors hover:text-cyan-300"
-                      aria-label={`Open ${p.title}`}
-                    >
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="size-4">
-                        <path d="M7 17 17 7M9 7h8v8" />
-                      </svg>
-                    </a>
-                  )}
-                </div>
-                <h3 className="mt-4 text-lg font-semibold text-slate-100 transition-colors group-hover:text-indigo-200">
-                  {p.title}
-                </h3>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-400">{p.description}</p>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {p.tech.map((t) => (
-                    <Chip key={t}>{t}</Chip>
-                  ))}
-                </div>
-              </article>
-            ))}
+            <a
+              href="/Ayush_Aggarwal_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm text-indigo-300 transition-colors hover:text-indigo-200"
+            >
+              Full history in the resume {arrowIcon}
+            </a>
           </div>
         </section>
 
         {/* ============ SKILLS ============ */}
-        <section id="skills" className="scroll-mt-28 py-24">
-          <SectionHeading index="04" title="Skills" />
+        <section id="skills" className="scroll-mt-28 py-20">
+          <SectionHeading index="03" title="Skills" />
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {skills.map((group, i) => (
               <div
@@ -341,45 +320,62 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ============ EDUCATION & RECOGNITION ============ */}
-        <section id="education" className="scroll-mt-28 py-24">
-          <SectionHeading index="05" title="Education & Recognition" />
-          <div className="grid gap-6 lg:grid-cols-2">
-            <div className="space-y-4">
+        {/* ============ ABOUT ============ */}
+        <section id="about" className="scroll-mt-28 py-20">
+          <SectionHeading index="04" title="About" />
+          <div className="grid gap-10 lg:grid-cols-5">
+            <div className="space-y-4 text-lg leading-relaxed text-slate-400 lg:col-span-3" data-reveal>
+              <p>
+                I&apos;m a software engineer with{" "}
+                <span className="text-slate-200">4+ years of experience</span> across backend,
+                platform, and cloud infrastructure work — currently at{" "}
+                <span className="text-slate-200">Ellucian</span>, where I designed the
+                architecture and access-control model for a lakehouse analytics platform.
+              </p>
+              <p>
+                I&apos;m full-stack by range — React and TypeScript on the front, Python and
+                Node.js APIs behind it — but{" "}
+                <span className="text-slate-200">backend and cloud infrastructure</span> is
+                where I go deepest. I like problems at the intersection of data,
+                infrastructure, and product, and I have a habit of automating away whatever
+                slows a team down.
+              </p>
+            </div>
+            <div className="space-y-4 lg:col-span-2">
               {education.map((e, i) => (
                 <div
                   key={e.school}
-                  className="card p-6"
+                  className="card p-5"
                   data-reveal
                   style={{ "--reveal-delay": `${i * 100}ms` } as React.CSSProperties}
                 >
                   <div className="flex flex-wrap items-baseline justify-between gap-2">
-                    <h3 className="text-lg font-semibold text-slate-100">{e.school}</h3>
+                    <h3 className="font-semibold text-slate-100">{e.school}</h3>
                     <span className="font-mono text-xs text-slate-500">{e.period}</span>
                   </div>
                   <p className="mt-1 text-sm text-indigo-300">{e.degree}</p>
-                  <p className="mt-3 text-sm leading-relaxed text-slate-400">{e.detail}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-400">{e.detail}</p>
                 </div>
               ))}
-            </div>
-            <div className="card p-6" data-reveal style={{ "--reveal-delay": "200ms" } as React.CSSProperties}>
-              <h3 className="font-mono text-sm text-cyan-300/90">Recognition</h3>
-              <ul className="mt-4 space-y-3">
-                {recognition.map((r) => (
-                  <li key={r} className="flex gap-3 text-sm leading-relaxed text-slate-400">
-                    <span className="mt-1 text-cyan-400" aria-hidden>◆</span>
-                    {r}
-                  </li>
-                ))}
-              </ul>
+              <div className="card p-5" data-reveal style={{ "--reveal-delay": "200ms" } as React.CSSProperties}>
+                <h3 className="font-mono text-sm text-cyan-300/90">Recognition</h3>
+                <ul className="mt-3 space-y-2">
+                  {recognition.map((r) => (
+                    <li key={r} className="flex gap-2.5 text-sm leading-relaxed text-slate-400">
+                      <span className="mt-0.5 text-cyan-400" aria-hidden>◆</span>
+                      {r}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </section>
 
         {/* ============ CONTACT ============ */}
-        <section id="contact" className="scroll-mt-28 py-24 pb-32 text-center">
+        <section id="contact" className="scroll-mt-28 py-20 pb-32 text-center">
           <p className="font-mono text-sm text-cyan-300" data-reveal>
-            06 · What&apos;s next?
+            05 · What&apos;s next?
           </p>
           <h2
             className="mt-4 text-4xl font-bold tracking-tight text-slate-50 sm:text-5xl"

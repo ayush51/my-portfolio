@@ -43,7 +43,7 @@ export default function OpenGraphImage() {
             marginTop: 20,
           }}
         >
-          Software Engineer II — Backend, Cloud & Data Platforms on AWS
+          Software Engineer II — Cloud Infrastructure & Data Platforms
         </div>
         <div style={{ display: "flex", gap: 16, marginTop: 48 }}>
           {["AWS", "Node.js", "Python", "React", "Terraform"].map((t) => (

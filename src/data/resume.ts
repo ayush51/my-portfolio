@@ -7,15 +7,7 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/ayush-aggarwal0298/",
   github: "https://github.com/ayush51",
   tagline:
-    "I design backend services, cloud infrastructure, and data platforms on AWS — from lakehouse analytics architectures to serverless pipelines that cut operational toil in half.",
-  typerWords: [
-    "backend services",
-    "cloud infrastructure",
-    "data platforms",
-    "full-stack products",
-    "serverless pipelines",
-    "analytics systems",
-  ],
+    "Software Engineer II at Ellucian. I design lakehouse analytics architectures and serverless pipelines — with deep, hands-on AWS — and ship the full-stack products on top of them.",
 };
 
 export const stats = [
@@ -58,12 +50,8 @@ export const experience: Job[] = [
     current: true,
     points: [
       "Designed the end-to-end architecture and access-control model for a lakehouse analytics platform — migrating reporting workloads from a Postgres data lake to S3 Iceberg tables queried through Athena, with governance enforced via IAM and Lake Formation.",
-      "Defined secure request flows and service-to-service authentication between internal services, Metabase, Athena, and AWS resources, collaborating directly with AWS SMEs on Lake Formation, S3 Tables, and permission design.",
-      "Analyzed complex SQL reporting dependencies across replicate tables, composite tables, reporting views, and BI dashboards to chart the migration to the lakehouse architecture.",
       "Shipped full-stack product features with React, Python APIs, and AWS serverless services powering customer-facing and internal analytics workflows.",
-      "Led the Node.js 22 upgrade across multiple services, resolving CI compatibility issues and unblocking runtime adoption for engineering teams.",
-      "Built a Lambda-based automation pipeline that triages Datadog logs — cutting manual operational effort by 50% and accelerating incident investigation.",
-      "Developed Playwright UI/API automation and self-service Jenkins integrations, raising release confidence and regression coverage.",
+      "Led the Node.js 22 upgrade across multiple services, and built a Lambda pipeline that triages Datadog logs — cutting manual operational effort by 50%.",
     ],
     tech: ["AWS", "Athena", "Iceberg", "Lake Formation", "Node.js", "Python", "React", "Terraform", "Datadog", "Playwright"],
   },
@@ -86,7 +74,6 @@ export const experience: Job[] = [
     points: [
       "Migrated legacy MySQL/Oracle pipelines to AWS (S3, Athena, Redshift) — improving query performance ~30% and integration throughput ~20% with partitioning and Parquet.",
       "Built data apps and APIs pushing modeled data into downstream tools, with job orchestration, retries, and monitoring for reliable syncs.",
-      "Partnered with business stakeholders to define segments and publish metrics used for experiments and campaigns.",
     ],
     tech: ["AWS", "S3", "Athena", "Redshift", "Python", "SQL", "Parquet"],
   },
@@ -103,17 +90,31 @@ export type Project = {
   description: string;
   tech: string[];
   link?: string; // TODO: add live/demo links
-  repo?: string; // TODO: add repo links
+  repo?: string;
   badge?: string;
+  accent: string; // gradient for the card's visual header
+  glyph: string;  // mono glyph shown in the visual header
 };
 
 export const projects: Project[] = [
+  {
+    title: "Photo-Based Drink Tracker",
+    badge: "In progress",
+    description:
+      "Snap a photo of your drink and AI estimates calories and logs your intake. Full-stack app with vision-model analysis on a fully free-tier stack.",
+    tech: ["Next.js", "Gemini API", "Vercel"],
+    repo: "https://github.com/ayush51/drink-tracker",
+    accent: "linear-gradient(135deg, rgba(34,211,238,0.25), rgba(16,185,129,0.15))",
+    glyph: "🥤",
+  },
   {
     title: "AI-Powered Coding Platform",
     badge: "AI · Education",
     description:
       "Web-based coding environment with real-time code optimization and intelligent suggestions, built to help students prepare for technical interviews.",
     tech: ["React", "Node.js", "OpenAI"],
+    accent: "linear-gradient(135deg, rgba(129,140,248,0.28), rgba(168,85,247,0.15))",
+    glyph: "{ }",
   },
   {
     title: "Automated Lecture Generation",
@@ -122,14 +123,19 @@ export const projects: Project[] = [
       "Used NLP and LLMs to generate automated lectures — reducing course preparation time by 40% and boosting educator efficiency.",
     tech: ["Python", "LLMs", "NLP"],
     repo: "https://github.com/ayush51/EducatorAlly-AutomatedLectureGenerator",
+    accent: "linear-gradient(135deg, rgba(244,114,182,0.22), rgba(129,140,248,0.15))",
+    glyph: "▶︎",
   },
   {
-    title: "Photo-Based Drink Tracker",
-    badge: "In progress",
+    title: "This Portfolio",
+    badge: "Live",
     description:
-      "Snap a photo of your drink and AI estimates calories and logs your intake. Full-stack app with vision-model analysis on a fully free-tier stack.",
-    tech: ["Next.js", "Gemini API", "Vercel"],
-    repo: "https://github.com/ayush51/drink-tracker",
+      "The site you're on — hand-rolled Next.js with a custom animation system, perfect Lighthouse-friendly static output, and content driven from a single data file.",
+    tech: ["Next.js", "TypeScript", "Tailwind 4"],
+    link: "https://ayush-aggarwal.vercel.app",
+    repo: "https://github.com/ayush51/my-portfolio",
+    accent: "linear-gradient(135deg, rgba(148,163,184,0.22), rgba(34,211,238,0.14))",
+    glyph: "~/",
   },
 ];
 
