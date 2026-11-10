@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://ayush-aggarwal.vercel.app"),
   title: "Ayush Aggarwal — Software Engineer",
   description:
-    "Full-stack software engineer, backend-leaning. AWS lakehouse analytics and serverless pipelines at Ellucian, plus shipped Next.js, Supabase and TypeScript products. Open to opportunities.",
+    "Full-stack software engineer, backend-leaning. AWS lakehouse analytics and serverless pipelines at Ellucian, plus shipped Next.js, Supabase and TypeScript products. Open to roles anywhere in the US.",
   keywords: [
     "Ayush Aggarwal",
     "Software Engineer",

@@ -2,26 +2,26 @@ export const profile = {
   name: "Ayush Aggarwal",
   role: "Software Engineer II",
   company: "Ellucian",
-  location: "Reston, VA",
+  location: "Arlington, VA",
   email: "aama098@gmail.com",
   linkedin: "https://www.linkedin.com/in/ayush-aggarwal0298/",
   github: "https://github.com/ayush51",
   headline: "Full-stack engineer, backend-leaning.",
   tagline:
-    "4+ years designing AWS lakehouse analytics and serverless pipelines at Ellucian and ZS — plus full-stack apps in React, Next.js and Supabase that I design and ship end to end.",
-  availability: "Open to opportunities",
+    "4+ years building AWS backend and data systems at Ellucian and ZS — plus full-stack apps in React, Next.js and Supabase that I design and ship end to end.",
+  availability: "Open to roles anywhere in the US",
 };
 
 export const stats = [
   { value: "4+", label: "years of engineering experience" },
-  { value: "50%", label: "less manual ops effort via Lambda automation" },
-  { value: "57", label: "colleges self-serving analytics dashboards" },
-  { value: "30%", label: "query performance gained in cloud migration" },
+  { value: "SE II", label: "promoted at Ellucian in 2026" },
+  { value: "Node 22", label: "runtime upgrade I led across services" },
+  { value: "41%", label: "lower query time, Athena vs RDS POC (2,000-row sample)" },
 ];
 
 export const skills: { group: string; items: string[] }[] = [
   { group: "Languages", items: ["Python", "TypeScript", "JavaScript", "Java", "C/C++", "SQL", "Bash"] },
-  { group: "Backend & Data", items: ["Node.js", "REST APIs", "PySpark", "Data Pipelines", "Athena", "Iceberg", "Metabase"] },
+  { group: "Backend & Data", items: ["Node.js", "REST APIs", "Data Pipelines", "Athena", "Iceberg", "Metabase"] },
   { group: "Cloud", items: ["AWS Lambda", "S3", "IAM", "Lake Formation", "DynamoDB", "SQS / SNS", "Terraform", "Docker"] },
   { group: "Frontend", items: ["React", "Next.js", "HTML / CSS", "D3.js"] },
   { group: "Tools", items: ["Git", "Jenkins", "Datadog", "Playwright", "Figma"] },
@@ -30,7 +30,7 @@ export const skills: { group: string; items: string[] }[] = [
 export const marquee = [
   "AWS", "Node.js", "Python", "React", "TypeScript", "Terraform", "Athena",
   "Iceberg", "Lambda", "DynamoDB", "Lake Formation", "Docker", "Playwright",
-  "Datadog", "PySpark", "SQS", "Jenkins", "Metabase",
+  "Datadog", "SQS", "Jenkins", "Metabase",
 ];
 
 export type Job = {
@@ -51,11 +51,14 @@ export const experience: Job[] = [
     period: "Jun 2024 — Present",
     current: true,
     points: [
-      "Designed the end-to-end architecture and access-control model for a lakehouse analytics platform — migrating reporting workloads from a Postgres data lake to S3 Iceberg tables queried through Athena, with governance enforced via IAM and Lake Formation.",
-      "Shipped full-stack product features with React, Python APIs, and AWS serverless services powering customer-facing and internal analytics workflows.",
-      "Led the Node.js 22 upgrade across multiple services, and built a Lambda pipeline that triages Datadog logs — cutting manual operational effort by 50%.",
+      "Owned the Metabase–Athena lakehouse integration end to end: got Metabase running on Athena, worked through connectivity, JDBC and metadata-sync issues with the Metabase team, and implemented database routing — one router database plus hidden destination databases, each with its own IAM credentials, chosen per user by a login attribute.",
+      "Co-designed role-based access to lakehouse data: a login resolver that unions a user's application roles into a permission package, mapped to IAM credentials and Lake Formation grants, with DynamoDB tracking and credentials held in SSM.",
+      "Flagged long-lived IAM credentials as a security and maintenance risk, won alignment from senior architects, and built an automated rotation workflow with Jenkins, DynamoDB metadata, a scheduler, and validation.",
+      "Led the Node.js 22 upgrade across services, covering runtime, dependency and CI compatibility with automated validation.",
+      "Contributing to the streaming ingestion platform (Python, Kafka/MSK, Flink): built a centralized source-type allowlist with a validation gate so unsupported config values fail early, and materializer work for nested-document tables.",
+      "Built React and TypeScript reporting features with WCAG accessibility and right-to-left language support, plus Lambda-based Datadog triage automation that cut manual operational effort by 50%.",
     ],
-    tech: ["AWS", "Athena", "Iceberg", "Lake Formation", "Node.js", "Python", "React", "Terraform", "Datadog", "Playwright"],
+    tech: ["AWS", "Athena", "Lake Formation", "IAM", "DynamoDB", "Metabase", "Node.js", "Python", "Kafka", "Terraform", "Jenkins", "React"],
   },
   {
     company: "Ellucian",
@@ -136,6 +139,7 @@ export const projects: Project[] = [
     ],
     tech: ["Next.js 15", "TypeScript", "Prisma", "Postgres", "SEC EDGAR", "shadcn/ui"],
     link: "https://thesistrack-eight.vercel.app",
+    repo: "https://github.com/ayush51/stocklens",
     accent: "linear-gradient(135deg, rgba(34,211,238,0.25), rgba(99,102,241,0.18))",
     glyph: "02",
     shotKind: "desktop",

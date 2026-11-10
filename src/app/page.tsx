@@ -424,9 +424,10 @@ export default function Home() {
               <p>
                 I&apos;m a software engineer with{" "}
                 <span className="text-slate-200">4+ years of experience</span> across backend,
-                platform, and cloud infrastructure work — currently at{" "}
-                <span className="text-slate-200">Ellucian</span>, where I designed the
-                architecture and access-control model for a lakehouse analytics platform.
+                platform, and cloud work — currently at{" "}
+                <span className="text-slate-200">Ellucian</span>, where I own the
+                Metabase–Athena integration and help build the role-to-data access that sits
+                behind lakehouse reporting.
               </p>
               <p>
                 I&apos;m full-stack by range — React and TypeScript on the front, Python and
