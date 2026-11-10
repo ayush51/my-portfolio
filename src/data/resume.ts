@@ -6,8 +6,10 @@ export const profile = {
   email: "aama098@gmail.com",
   linkedin: "https://www.linkedin.com/in/ayush-aggarwal0298/",
   github: "https://github.com/ayush51",
+  headline: "Full-stack engineer, backend-leaning.",
   tagline:
-    "Software Engineer II at Ellucian. I design lakehouse analytics architectures and serverless pipelines — with deep, hands-on AWS — and ship the full-stack products on top of them.",
+    "4+ years designing AWS lakehouse analytics and serverless pipelines at Ellucian and ZS — plus full-stack apps in React, Next.js and Supabase that I design and ship end to end.",
+  availability: "Open to opportunities",
 };
 
 export const stats = [
@@ -153,6 +155,7 @@ export const projects: Project[] = [
     ],
     tech: ["Next.js", "TypeScript", "Supabase", "Tailwind", "shadcn/ui", "Motion"],
     link: "https://sidequestdmv.vercel.app",
+    repo: "https://github.com/ayush51/sidequest",
     accent: "linear-gradient(135deg, rgba(190,242,100,0.22), rgba(34,211,238,0.12))",
     glyph: "03",
     shotKind: "phone",
@@ -231,3 +234,41 @@ export const recognition = [
   "First rank, University Examination 2017",
   "Data Structures & Algorithms mentor for two years",
 ];
+
+export const caseStudy = {
+  project: "The Couch",
+  summary:
+    "A private PWA for one six-person household, built the way a multi-tenant product would be: the database enforces the rules, and the app can't bypass them.",
+  flow: [
+    { label: "Browser", note: "anon key + user JWT only" },
+    { label: "Postgres + RLS", note: "every table, every row" },
+    { label: "Server-only", note: "service-role key, cron, invites" },
+  ],
+  decisions: [
+    {
+      problem: "Who can see what?",
+      decision:
+        "Every table carries a household_id and row-level security decides access. Security-definer helpers have a pinned search_path, and tables that clients must not write simply have no insert or update policy. The service-role key lives only in server-only modules.",
+    },
+    {
+      problem: "Can a retry double-pay someone?",
+      decision:
+        "Rewards go through an append-only ledger with a unique idempotency key (for example daily:{user}:{date}). The balance updates in the same transaction under SELECT … FOR UPDATE with a CHECK that it never goes negative, so replays are no-ops.",
+    },
+    {
+      problem: "What does \"today\" mean?",
+      decision:
+        "Each household has its own timezone. Scheduled jobs run in pg_cron and write rows keyed by (household_id, local_date) with unique constraints, so re-running a job is safe. Photo expiry is enforced in the backend, never in the UI.",
+    },
+    {
+      problem: "Can players cheat at chess or Monopoly?",
+      decision:
+        "Dice are rolled on the server and chess moves are validated server-side behind a secret-gated RPC. The client only requests a move.",
+    },
+    {
+      problem: "How do you know it still works?",
+      decision:
+        "RLS and rollback tests on the database, plus a Playwright suite across 5 screen sizes. Tab pages are prefetched and cached, which brought tab switches down to 31–64 ms.",
+    },
+  ],
+};

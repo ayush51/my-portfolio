@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://ayush-aggarwal.vercel.app"),
   title: "Ayush Aggarwal — Software Engineer",
   description:
-    "Software Engineer II at Ellucian building cloud infrastructure and data platforms. Lakehouse analytics, serverless architectures, deep AWS, Node.js, Python, React.",
+    "Full-stack software engineer, backend-leaning. AWS lakehouse analytics and serverless pipelines at Ellucian, plus shipped Next.js, Supabase and TypeScript products. Open to opportunities.",
   keywords: [
     "Ayush Aggarwal",
     "Software Engineer",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Ayush Aggarwal — Software Engineer",
     description:
-      "Backend services, cloud infrastructure, and data platforms on AWS.",
+      "Full-stack engineer building AWS data platforms and the products on top of them.",
     url: "https://ayush-aggarwal.vercel.app",
     siteName: "Ayush Aggarwal",
     type: "website",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Ayush Aggarwal — Software Engineer",
     description:
-      "Backend services, cloud infrastructure, and data platforms on AWS.",
+      "Full-stack engineer building AWS data platforms and the products on top of them.",
   },
 };
 

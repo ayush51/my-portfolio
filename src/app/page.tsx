@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Fragment } from "react";
 import CountUp from "@/components/CountUp";
 import Effects from "@/components/Effects";
 import Nav from "@/components/Nav";
@@ -9,6 +10,7 @@ import {
   experience,
   earlierRoles,
   projects,
+  caseStudy,
   education,
   recognition,
 } from "@/data/resume";
@@ -116,15 +118,15 @@ export default function Home() {
             data-reveal
             style={{ "--reveal-delay": "160ms" } as React.CSSProperties}
           >
-            I build <span className="text-gradient">cloud infrastructure</span> &{" "}
-            <span className="text-gradient">data platforms</span>.
+            I build <span className="text-gradient">data platforms</span> and the{" "}
+            <span className="text-gradient">products</span> on top of them.
           </h2>
           <p
             className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-400"
             data-reveal
             style={{ "--reveal-delay": "240ms" } as React.CSSProperties}
           >
-            {profile.tagline}
+            <span className="text-slate-200">{profile.headline}</span> {profile.tagline}
           </p>
           <div
             className="mt-9 flex flex-wrap items-center gap-4"
@@ -142,6 +144,14 @@ export default function Home() {
               className="rounded-full border border-line px-6 py-3 text-sm font-medium text-slate-300 transition-all hover:border-indigo-400/50 hover:text-white"
             >
               Get in touch
+            </a>
+            <a
+              href="/Ayush_Aggarwal_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full border border-line px-6 py-3 text-sm font-medium text-slate-300 transition-all hover:border-indigo-400/50 hover:text-white"
+            >
+              Résumé
             </a>
             <div className="ml-1 flex items-center gap-4 text-slate-400">
               <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="transition-colors hover:text-indigo-300">
@@ -183,6 +193,9 @@ export default function Home() {
               <span className="pulse-dot relative inline-flex size-2 rounded-full bg-cyan-400" />
             </span>
             {profile.role} @ {profile.company} · {profile.location}
+            <span className="rounded-full border border-cyan-400/30 bg-cyan-400/10 px-2.5 py-0.5 text-cyan-300">
+              {profile.availability}
+            </span>
           </div>
         </section>
 
@@ -270,7 +283,7 @@ export default function Home() {
                       )}
                       {p.repo && (
                         <a href={p.repo} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-slate-400 transition-colors hover:text-slate-200">
-                          Code {arrowIcon}
+                          View source {arrowIcon}
                         </a>
                       )}
                     </div>
@@ -281,9 +294,50 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ============ CASE STUDY ============ */}
+        <section id="case-study" className="scroll-mt-28 py-20">
+          <SectionHeading index="02" title={`Case study: ${caseStudy.project}`} />
+          <p className="max-w-3xl text-lg leading-relaxed text-slate-400" data-reveal>
+            {caseStudy.summary}
+          </p>
+          <div className="mt-8 grid items-stretch gap-3 sm:grid-cols-[1fr_auto_1fr_auto_1fr]" data-reveal>
+            {caseStudy.flow.map((f, i) => (
+              <Fragment key={f.label}>
+                {i > 0 && (
+                  <span className="hidden items-center justify-center font-mono text-slate-600 sm:flex" aria-hidden>
+                    →
+                  </span>
+                )}
+                <div className="card p-5 text-center">
+                  <div className="font-mono text-sm text-cyan-300/90">{f.label}</div>
+                  <div className="mt-1 text-xs text-slate-500">{f.note}</div>
+                </div>
+              </Fragment>
+            ))}
+          </div>
+          <div className="mt-8 grid gap-5 md:grid-cols-2">
+            {caseStudy.decisions.map((d, i) => (
+              <div
+                key={d.problem}
+                className="card p-6"
+                data-reveal
+                style={{ "--reveal-delay": `${(i % 2) * 80}ms` } as React.CSSProperties}
+              >
+                <h3 className="font-semibold text-slate-100">{d.problem}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-400">{d.decision}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-8 flex gap-6 text-sm" data-reveal>
+            <a href="https://github.com/ayush51/social-rommies-hub/blob/main/ARCHITECTURE.md" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-indigo-300 transition-colors hover:text-indigo-200">
+              Read the architecture doc {arrowIcon}
+            </a>
+          </div>
+        </section>
+
         {/* ============ EXPERIENCE ============ */}
         <section id="experience" className="scroll-mt-28 py-20">
-          <SectionHeading index="02" title="Experience" />
+          <SectionHeading index="03" title="Experience" />
           <div className="relative space-y-10 before:absolute before:top-2 before:bottom-2 before:left-[7px] before:w-px before:bg-gradient-to-b before:from-indigo-400/50 before:via-line before:to-transparent">
             {experience.map((job) => (
               <article key={`${job.company}-${job.period}`} className="relative pl-10" data-reveal>
@@ -342,7 +396,7 @@ export default function Home() {
 
         {/* ============ SKILLS ============ */}
         <section id="skills" className="scroll-mt-28 py-20">
-          <SectionHeading index="03" title="Skills" />
+          <SectionHeading index="04" title="Skills" />
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {skills.map((group, i) => (
               <div
@@ -364,7 +418,7 @@ export default function Home() {
 
         {/* ============ ABOUT ============ */}
         <section id="about" className="scroll-mt-28 py-20">
-          <SectionHeading index="04" title="About" />
+          <SectionHeading index="05" title="About" />
           <div className="grid gap-10 lg:grid-cols-5">
             <div className="space-y-4 text-lg leading-relaxed text-slate-400 lg:col-span-3" data-reveal>
               <p>
@@ -417,7 +471,7 @@ export default function Home() {
         {/* ============ CONTACT ============ */}
         <section id="contact" className="scroll-mt-28 py-20 pb-32 text-center">
           <p className="font-mono text-sm text-cyan-300" data-reveal>
-            05 · What&apos;s next?
+            06 · What&apos;s next?
           </p>
           <h2
             className="mt-4 text-4xl font-bold tracking-tight text-slate-50 sm:text-5xl"
