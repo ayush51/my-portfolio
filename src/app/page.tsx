@@ -1,3 +1,4 @@
+import Image from "next/image";
 import CountUp from "@/components/CountUp";
 import Effects from "@/components/Effects";
 import Nav from "@/components/Nav";
@@ -80,6 +81,12 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
       />
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:rounded-full focus:bg-indigo-500 focus:px-4 focus:py-2 focus:text-sm focus:text-white"
+      >
+        Skip to content
+      </a>
       <Effects />
       <Nav />
 
@@ -91,7 +98,7 @@ export default function Home() {
       </div>
       <div className="bg-grid pointer-events-none absolute inset-x-0 top-0 h-[120vh]" aria-hidden />
 
-      <main className="relative z-10 mx-auto max-w-6xl px-6">
+      <main id="main" className="relative z-10 mx-auto max-w-6xl px-6">
         {/* ============ HERO ============ */}
         <section className="flex min-h-[82svh] flex-col justify-center pt-28 pb-12">
           <p className="mb-5 font-mono text-sm text-cyan-300" data-reveal>
@@ -182,60 +189,95 @@ export default function Home() {
         {/* ============ PROJECTS ============ */}
         <section id="projects" className="scroll-mt-28 py-20">
           <SectionHeading index="01" title="Projects" />
+          <p className="-mt-4 mb-8 max-w-2xl text-slate-400" data-reveal>
+            Side projects I build end to end, from schema and security model to shipped product.
+          </p>
           <div className="grid gap-6 sm:grid-cols-2">
-            {projects.map((p, i) => {
-              const href = p.link || p.repo;
-              return (
-                <article
-                  key={p.title}
-                  className="card group flex flex-col overflow-hidden"
-                  data-reveal
-                  style={{ "--reveal-delay": `${i * 90}ms` } as React.CSSProperties}
-                >
-                  <div
-                    className="flex h-28 items-center justify-between px-6"
-                    style={{ background: p.accent }}
-                  >
-                    <span className="font-mono text-4xl text-white/70 select-none">{p.glyph}</span>
-                    <span className="rounded-full bg-black/30 px-2.5 py-1 font-mono text-[11px] text-slate-200 backdrop-blur">
-                      {p.badge}
-                    </span>
+            {projects.map((p, i) => (
+              <article
+                key={p.title}
+                className="card group flex flex-col overflow-hidden"
+                data-reveal
+                style={{ "--reveal-delay": `${(i % 2) * 90}ms` } as React.CSSProperties}
+              >
+                <div className={`relative overflow-hidden ${p.shots ? "h-64" : "h-24"}`} style={{ background: p.accent }}>
+                  <span className="absolute top-3 right-3 z-10 rounded-full bg-black/40 px-2.5 py-1 font-mono text-[11px] text-slate-200 backdrop-blur">
+                    {p.badge}
+                  </span>
+                  {p.shots && p.shotKind === "phone" && (
+                    <div className="flex h-full items-start justify-center gap-3 px-6 pt-10">
+                      {p.shots.map((sh, n) => (
+                        <Image
+                          key={sh.src}
+                          src={sh.src}
+                          alt={sh.alt}
+                          width={sh.w}
+                          height={sh.h}
+                          sizes="130px"
+                          className={`w-[30%] max-w-[130px] rounded-t-2xl border border-b-0 border-white/15 shadow-2xl shadow-black/50 transition-transform duration-500 group-hover:-translate-y-2 ${n % 2 === 0 ? "mt-6" : ""}`}
+                        />
+                      ))}
+                    </div>
+                  )}
+                  {p.shots && p.shotKind === "desktop" && (
+                    <>
+                      <Image
+                        src={p.shots[0].src}
+                        alt={p.shots[0].alt}
+                        width={p.shots[0].w}
+                        height={p.shots[0].h}
+                        sizes="320px"
+                        className="absolute top-10 left-6 w-[62%] rounded-t-lg border border-b-0 border-white/15 shadow-2xl shadow-black/50"
+                      />
+                      <Image
+                        src={p.shots[1].src}
+                        alt={p.shots[1].alt}
+                        width={p.shots[1].w}
+                        height={p.shots[1].h}
+                        sizes="320px"
+                        className="absolute top-20 right-6 w-[62%] rounded-t-lg border border-b-0 border-white/15 shadow-2xl shadow-black/60 transition-transform duration-500 group-hover:-translate-y-2"
+                      />
+                    </>
+                  )}
+                  {!p.shots && (
+                    <span className="absolute top-1/2 left-6 -translate-y-1/2 font-mono text-3xl font-semibold text-white/60 select-none">{p.glyph}</span>
+                  )}
+                </div>
+                <div className="flex flex-1 flex-col p-6">
+                  <h3 className="text-lg font-semibold text-slate-100">{p.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-400">{p.description}</p>
+                  {p.highlights.length > 0 && (
+                    <ul className="mt-4 space-y-2">
+                      {p.highlights.map((h) => (
+                        <li key={h} className="flex gap-2.5 text-[13px] leading-relaxed text-slate-400">
+                          <span className="mt-[8px] size-1 shrink-0 rounded-full bg-cyan-400/70" aria-hidden />
+                          {h}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {p.tech.map((t) => (
+                      <Chip key={t}>{t}</Chip>
+                    ))}
                   </div>
-                  <div className="flex flex-1 flex-col p-6">
-                    <div className="flex items-start justify-between gap-3">
-                      <h3 className="text-lg font-semibold text-slate-100 transition-colors group-hover:text-indigo-200">
-                        {href ? (
-                          <a href={href} target="_blank" rel="noopener noreferrer">
-                            {p.title}
-                          </a>
-                        ) : (
-                          p.title
-                        )}
-                      </h3>
-                      {href && (
-                        <a
-                          href={href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="mt-1 shrink-0 text-slate-500 transition-colors hover:text-cyan-300"
-                          aria-label={`Open ${p.title}`}
-                        >
-                          {arrowIcon}
+                  {(p.link || p.repo) && (
+                    <div className="mt-6 flex gap-5 text-sm">
+                      {p.link && (
+                        <a href={p.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-indigo-300 transition-colors hover:text-indigo-200">
+                          Live site {arrowIcon}
+                        </a>
+                      )}
+                      {p.repo && (
+                        <a href={p.repo} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-slate-400 transition-colors hover:text-slate-200">
+                          Code {arrowIcon}
                         </a>
                       )}
                     </div>
-                    <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-400">
-                      {p.description}
-                    </p>
-                    <div className="mt-5 flex flex-wrap gap-2">
-                      {p.tech.map((t) => (
-                        <Chip key={t}>{t}</Chip>
-                      ))}
-                    </div>
-                  </div>
-                </article>
-              );
-            })}
+                  )}
+                </div>
+              </article>
+            ))}
           </div>
         </section>
 

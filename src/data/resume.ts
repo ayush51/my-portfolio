@@ -88,54 +88,125 @@ export const earlierRoles = [
 export type Project = {
   title: string;
   description: string;
+  highlights: string[]; // engineering depth: what's hard about it
   tech: string[];
-  link?: string; // TODO: add live/demo links
-  repo?: string;
-  badge?: string;
+  link?: string; // live site
+  repo?: string; // omit for private repos
+  badge: string;
   accent: string; // gradient for the card's visual header
-  glyph: string;  // mono glyph shown in the visual header
+  glyph: string;  // mono glyph shown when there are no screenshots
+  shots?: { src: string; alt: string; w: number; h: number }[];
+  shotKind?: "phone" | "desktop";
 };
 
 export const projects: Project[] = [
   {
-    title: "Photo-Based Drink Tracker",
-    badge: "In progress",
+    title: "The Couch",
+    badge: "Live · Invite-only",
     description:
-      "Snap a photo of your drink and AI estimates calories and logs your intake. Full-stack app with vision-model analysis on a fully free-tier stack.",
-    tech: ["Next.js", "Gemini API", "Vercel"],
-    repo: "https://github.com/ayush51/drink-tracker",
-    accent: "linear-gradient(135deg, rgba(34,211,238,0.25), rgba(16,185,129,0.15))",
-    glyph: "🥤",
+      "Private PWA for one household: realtime chat, shared plans, daily photos, a points economy, and async chess and Monopoly-style games.",
+    highlights: [
+      "Security lives in Postgres: row-level security on every table, so cross-household access is impossible regardless of app code.",
+      "Append-only ledger with idempotency keys and a non-negative balance check, so retries and replays can't double-pay.",
+      "Server-validated game moves, pg_cron reminders, web push, and a Playwright suite across 5 screen sizes.",
+    ],
+    tech: ["Next.js 16", "TypeScript", "Supabase", "Postgres RLS", "Web Push", "Playwright"],
+    link: "https://roomies-vert.vercel.app",
+    repo: "https://github.com/ayush51/social-rommies-hub",
+    accent: "linear-gradient(135deg, rgba(129,140,248,0.28), rgba(168,85,247,0.15))",
+    glyph: "01",
+    shotKind: "phone",
+    shots: [
+      { src: "/projects/couch/chat.jpg", alt: "The Couch group chat with reactions", w: 520, h: 885 },
+      { src: "/projects/couch/games.jpg", alt: "The Couch games hub with wallet and leaderboard", w: 520, h: 885 },
+      { src: "/projects/couch/plans.jpg", alt: "The Couch shared plans list", w: 520, h: 885 },
+    ],
   },
   {
-    title: "AI-Powered Coding Platform",
-    badge: "AI · Education",
+    title: "StockLens",
+    badge: "Live",
     description:
-      "Web-based coding environment with real-time code optimization and intelligent suggestions, built to help students prepare for technical interviews.",
-    tech: ["React", "Node.js", "OpenAI"],
-    accent: "linear-gradient(135deg, rgba(129,140,248,0.28), rgba(168,85,247,0.15))",
-    glyph: "{ }",
+      "Investment research dashboard that ties a portfolio to the thesis behind each position, with filings, alerts, and a signal-convergence research tool.",
+    highlights: [
+      "Brokerage integration is read-only by design: the provider interface has no write method, so it's enforced by the type system.",
+      "Signal Convergence cross-references SEC EDGAR insider filings with USAspending.gov contract awards, with entity resolution and a transparent 0–100 score.",
+      "Feature-based architecture with provider contracts for every external data source.",
+    ],
+    tech: ["Next.js 15", "TypeScript", "Prisma", "Postgres", "SEC EDGAR", "shadcn/ui"],
+    link: "https://thesistrack-eight.vercel.app",
+    accent: "linear-gradient(135deg, rgba(34,211,238,0.25), rgba(99,102,241,0.18))",
+    glyph: "02",
+    shotKind: "desktop",
+    shots: [
+      { src: "/projects/stocklens/thesis.jpg", alt: "StockLens investment thesis page for a company", w: 1200, h: 750 },
+      { src: "/projects/stocklens/signal.jpg", alt: "StockLens Signal Convergence score breakdown with insider transactions", w: 1200, h: 750 },
+    ],
+  },
+  {
+    title: "SideQuest",
+    badge: "Live",
+    description:
+      "Mobile-first PWA that hands out a small real-world adventure every day, with points, streaks, friends, and community-suggested quests.",
+    highlights: [
+      "User-suggested quests go through an admin approval queue; the quest pool only ever serves approved rows.",
+      "Server Actions with optimistic UI, per-route loading skeletons, and RLS so friends only see what users choose to share.",
+    ],
+    tech: ["Next.js", "TypeScript", "Supabase", "Tailwind", "shadcn/ui", "Motion"],
+    link: "https://sidequestdmv.vercel.app",
+    accent: "linear-gradient(135deg, rgba(190,242,100,0.22), rgba(34,211,238,0.12))",
+    glyph: "03",
+    shotKind: "phone",
+    shots: [
+      { src: "/projects/sidequest/today.jpg", alt: "SideQuest daily quest card with XP and streak", w: 520, h: 1124 },
+      { src: "/projects/sidequest/social.jpg", alt: "SideQuest friends activity feed", w: 520, h: 1124 },
+      { src: "/projects/sidequest/profile.jpg", alt: "SideQuest profile with achievements", w: 520, h: 1124 },
+    ],
+  },
+  {
+    title: "Sip Happens",
+    badge: "Live",
+    description:
+      "Drink tracker where you snap a photo and a vision model estimates the drink, with daily limits, history, group view, and push reminders.",
+    highlights: [
+      "Gemini vision analysis behind a server route, running on a fully free-tier stack.",
+      "Installable PWA with a service worker and web push.",
+    ],
+    tech: ["Next.js", "Gemini API", "Supabase", "Web Push", "Vercel"],
+    link: "https://drink-tracker-lime.vercel.app",
+    repo: "https://github.com/ayush51/drink-tracker",
+    accent: "linear-gradient(135deg, rgba(251,146,60,0.28), rgba(244,114,182,0.15))",
+    glyph: "04",
+    shotKind: "phone",
+    shots: [
+      { src: "/projects/sip/home.jpg", alt: "Sip Happens dashboard with daily limit and streaks", w: 520, h: 1124 },
+      { src: "/projects/sip/calendar.jpg", alt: "Sip Happens calendar view", w: 520, h: 1124 },
+      { src: "/projects/sip/profile.jpg", alt: "Sip Happens profile", w: 520, h: 1124 },
+    ],
+  },
+  {
+    title: "The 4 AM Desk",
+    badge: "Automated",
+    description:
+      "Pre-market briefing emailed every weekday at ~4 AM ET: futures, world markets, commodities, overnight headlines, and the day's economic calendar.",
+    highlights: [
+      "Zero servers: scheduled on GitHub Actions, pulling from several free market-data APIs with graceful fallbacks.",
+      "Optional AI-written takeaway on top of the data.",
+    ],
+    tech: ["Python", "GitHub Actions", "Cloudflare Workers", "REST APIs"],
+    repo: "https://github.com/ayush51/premarket-briefing",
+    accent: "linear-gradient(135deg, rgba(148,163,184,0.22), rgba(34,211,238,0.14))",
+    glyph: "05",
   },
   {
     title: "Automated Lecture Generation",
     badge: "NLP · LLMs",
     description:
-      "Used NLP and LLMs to generate automated lectures — reducing course preparation time by 40% and boosting educator efficiency.",
+      "Used NLP and LLMs to generate automated lectures, reducing course preparation time by 40% and boosting educator efficiency.",
+    highlights: [],
     tech: ["Python", "LLMs", "NLP"],
     repo: "https://github.com/ayush51/EducatorAlly-AutomatedLectureGenerator",
     accent: "linear-gradient(135deg, rgba(244,114,182,0.22), rgba(129,140,248,0.15))",
-    glyph: "▶︎",
-  },
-  {
-    title: "This Portfolio",
-    badge: "Live",
-    description:
-      "The site you're on — hand-rolled Next.js with a custom animation system, perfect Lighthouse-friendly static output, and content driven from a single data file.",
-    tech: ["Next.js", "TypeScript", "Tailwind 4"],
-    link: "https://ayush-aggarwal.vercel.app",
-    repo: "https://github.com/ayush51/my-portfolio",
-    accent: "linear-gradient(135deg, rgba(148,163,184,0.22), rgba(34,211,238,0.14))",
-    glyph: "~/",
+    glyph: "06",
   },
 ];
 
