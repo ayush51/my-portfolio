@@ -18,11 +18,11 @@ import {
 function SectionHeading({ index, title }: { index: string; title: string }) {
   return (
     <div className="mb-10 flex items-center gap-4" data-reveal>
-      <span className="font-mono text-sm text-cyan-300/80">{index}</span>
+      <span className="font-mono text-sm text-accent">{index}</span>
       <h2 className="text-2xl font-semibold tracking-tight text-slate-100 sm:text-3xl">
         {title}
       </h2>
-      <div className="h-px flex-1 bg-gradient-to-r from-indigo-400/40 to-transparent" />
+      <div className="h-px flex-1 bg-line" />
     </div>
   );
 }
@@ -32,6 +32,19 @@ function Chip({ children }: { children: React.ReactNode }) {
     <span className="rounded-full border border-line bg-white/[0.03] px-3 py-1 font-mono text-xs text-slate-300">
       {children}
     </span>
+  );
+}
+
+function Highlights({ items }: { items: { title: string; text: string }[] }) {
+  return (
+    <ul className="mt-5 grid gap-x-8 gap-y-5 first:mt-0 sm:grid-cols-2">
+      {items.map((h) => (
+        <li key={h.title}>
+          <div className="text-[15px] font-semibold text-slate-100">{h.title}</div>
+          <p className="mt-1 text-sm leading-relaxed text-slate-400">{h.text}</p>
+        </li>
+      ))}
+    </ul>
   );
 }
 
@@ -85,41 +98,37 @@ export default function Home() {
       />
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:rounded-full focus:bg-indigo-500 focus:px-4 focus:py-2 focus:text-sm focus:text-white"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:text-ink"
       >
         Skip to content
       </a>
       <Effects />
       <Nav />
 
-      {/* background layers */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
-        <div className="aurora aurora-a -top-40 -left-40" />
-        <div className="aurora aurora-b top-1/4 -right-40" />
-        <div className="aurora aurora-c top-[60%] left-1/4" />
-      </div>
-      <div className="bg-grid pointer-events-none absolute inset-x-0 top-0 h-[120vh]" aria-hidden />
-
       <main id="main" className="relative z-10 mx-auto max-w-6xl px-6">
         {/* ============ HERO ============ */}
-        <section className="flex min-h-[82svh] flex-col justify-center pt-28 pb-12">
-          <p className="mb-5 font-mono text-sm text-cyan-300" data-reveal>
-            Hi, my name is
+        <section className="grid min-h-[82svh] items-center gap-10 pt-28 pb-12 md:grid-cols-[1fr_auto]">
+          <div className="flex flex-col">
+          <p
+            className="mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-4 py-1.5 font-mono text-sm font-medium text-accent"
+            data-reveal
+          >
+            {profile.role} · {profile.company}
           </p>
           <h1
             className="text-5xl font-bold tracking-tight text-slate-50 sm:text-7xl"
             data-reveal
             style={{ "--reveal-delay": "80ms" } as React.CSSProperties}
           >
-            Ayush Aggarwal<span className="text-gradient">.</span>
+            Ayush Aggarwal
           </h1>
           <h2
-            className="mt-4 text-2xl font-semibold tracking-tight text-slate-400 sm:text-4xl"
+            className="mt-4 text-2xl font-semibold tracking-tight text-balance text-slate-400 sm:text-4xl"
             data-reveal
             style={{ "--reveal-delay": "160ms" } as React.CSSProperties}
           >
             I build <span className="text-gradient">data platforms</span> and the{" "}
-            <span className="text-gradient">products</span> on top of them.
+            <span className="text-gradient">products</span> on top of them
           </h2>
           <p
             className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-400"
@@ -135,13 +144,13 @@ export default function Home() {
           >
             <a
               href="#projects"
-              className="rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 px-6 py-3 text-sm font-semibold text-white transition-all hover:shadow-[0_0_32px_rgba(99,102,241,0.5)]"
+              className="rounded-full bg-accent px-6 py-3 text-sm font-semibold text-ink transition-all hover:brightness-110"
             >
               View projects
             </a>
             <a
               href={`mailto:${profile.email}`}
-              className="rounded-full border border-line px-6 py-3 text-sm font-medium text-slate-300 transition-all hover:border-indigo-400/50 hover:text-white"
+              className="rounded-full border border-line px-6 py-3 text-sm font-medium text-slate-300 transition-all hover:border-accent/50 hover:text-white"
             >
               Get in touch
             </a>
@@ -149,20 +158,20 @@ export default function Home() {
               href="/Ayush_Aggarwal_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full border border-line px-6 py-3 text-sm font-medium text-slate-300 transition-all hover:border-indigo-400/50 hover:text-white"
+              className="rounded-full border border-line px-6 py-3 text-sm font-medium text-slate-300 transition-all hover:border-accent/50 hover:text-white"
             >
               Résumé
             </a>
             <div className="ml-1 flex items-center gap-4 text-slate-400">
-              <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="transition-colors hover:text-indigo-300">
+              <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="transition-colors hover:text-accent">
                 {linkedInIcon}
               </a>
               {profile.github && (
-                <a href={profile.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="transition-colors hover:text-indigo-300">
+                <a href={profile.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="transition-colors hover:text-accent">
                   {githubIcon}
                 </a>
               )}
-              <a href={`mailto:${profile.email}`} aria-label="Email" className="transition-colors hover:text-indigo-300">
+              <a href={`mailto:${profile.email}`} aria-label="Email" className="transition-colors hover:text-accent">
                 {mailIcon}
               </a>
             </div>
@@ -190,12 +199,24 @@ export default function Home() {
             style={{ "--reveal-delay": "480ms" } as React.CSSProperties}
           >
             <span className="relative flex size-2">
-              <span className="pulse-dot relative inline-flex size-2 rounded-full bg-cyan-400" />
+              <span className="pulse-dot relative inline-flex size-2 rounded-full bg-emerald-400" />
             </span>
-            {profile.role} @ {profile.company} · {profile.location}
-            <span className="rounded-full border border-cyan-400/30 bg-cyan-400/10 px-2.5 py-0.5 text-cyan-300">
+            {profile.location}
+            <span className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-2.5 py-0.5 text-emerald-300">
               {profile.availability}
             </span>
+          </div>
+          </div>
+          <div className="order-first md:order-none" data-reveal style={{ "--reveal-delay": "200ms" } as React.CSSProperties}>
+            <Image
+              src="/ayush.jpg"
+              alt="Portrait of Ayush Aggarwal"
+              width={720}
+              height={720}
+              priority
+              sizes="(min-width: 768px) 288px, 128px"
+              className="size-32 rounded-2xl border border-line object-cover sm:size-40 md:size-72"
+            />
           </div>
         </section>
 
@@ -213,7 +234,7 @@ export default function Home() {
                 data-reveal
                 style={{ "--reveal-delay": `${(i % 2) * 90}ms` } as React.CSSProperties}
               >
-                <div className={`relative overflow-hidden ${p.shots ? "h-64" : "h-24"}`} style={{ background: p.accent }}>
+                <div className={`relative overflow-hidden bg-[#1c1514] ${p.shots ? "h-64" : "h-24"}`}>
                   <span className="absolute top-3 right-3 z-10 rounded-full bg-black/40 px-2.5 py-1 font-mono text-[11px] text-slate-200 backdrop-blur">
                     {p.badge}
                   </span>
@@ -263,7 +284,7 @@ export default function Home() {
                     <ul className="mt-4 space-y-2">
                       {p.highlights.map((h) => (
                         <li key={h} className="flex gap-2.5 text-[13px] leading-relaxed text-slate-400">
-                          <span className="mt-[8px] size-1 shrink-0 rounded-full bg-cyan-400/70" aria-hidden />
+                          <span className="mt-[8px] size-1 shrink-0 rounded-full bg-accent/70" aria-hidden />
                           {h}
                         </li>
                       ))}
@@ -277,7 +298,7 @@ export default function Home() {
                   {(p.link || p.repo) && (
                     <div className="mt-6 flex gap-5 text-sm">
                       {p.link && (
-                        <a href={p.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-indigo-300 transition-colors hover:text-indigo-200">
+                        <a href={p.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-accent transition-colors hover:text-accent-soft">
                           Live site {arrowIcon}
                         </a>
                       )}
@@ -309,7 +330,7 @@ export default function Home() {
                   </span>
                 )}
                 <div className="card p-5 text-center">
-                  <div className="font-mono text-sm text-cyan-300/90">{f.label}</div>
+                  <div className="font-mono text-sm text-accent">{f.label}</div>
                   <div className="mt-1 text-xs text-slate-500">{f.note}</div>
                 </div>
               </Fragment>
@@ -329,7 +350,7 @@ export default function Home() {
             ))}
           </div>
           <div className="mt-8 flex gap-6 text-sm" data-reveal>
-            <a href="https://github.com/ayush51/social-rommies-hub/blob/main/ARCHITECTURE.md" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-indigo-300 transition-colors hover:text-indigo-200">
+            <a href="https://github.com/ayush51/social-rommies-hub/blob/main/ARCHITECTURE.md" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-accent transition-colors hover:text-accent-soft">
               Read the architecture doc {arrowIcon}
             </a>
           </div>
@@ -338,13 +359,13 @@ export default function Home() {
         {/* ============ EXPERIENCE ============ */}
         <section id="experience" className="scroll-mt-28 py-20">
           <SectionHeading index="03" title="Experience" />
-          <div className="relative space-y-10 before:absolute before:top-2 before:bottom-2 before:left-[7px] before:w-px before:bg-gradient-to-b before:from-indigo-400/50 before:via-line before:to-transparent">
+          <div className="relative space-y-10 before:absolute before:top-2 before:bottom-2 before:left-[7px] before:w-px before:bg-line">
             {experience.map((job) => (
               <article key={`${job.company}-${job.period}`} className="relative pl-10" data-reveal>
                 <span
                   className={`absolute top-2 left-0 size-[15px] rounded-full border-2 ${
                     job.current
-                      ? "border-cyan-400 bg-cyan-400/30 shadow-[0_0_12px_rgba(34,211,238,0.6)]"
+                      ? "border-accent bg-accent/30"
                       : "border-slate-600 bg-ink"
                   }`}
                   aria-hidden
@@ -353,18 +374,22 @@ export default function Home() {
                   <div className="flex flex-wrap items-baseline justify-between gap-2">
                     <h3 className="text-xl font-semibold text-slate-100">
                       {job.role}{" "}
-                      <span className="text-indigo-300">@ {job.company}</span>
+                      <span className="text-accent">@ {job.company}</span>
                     </h3>
                     <span className="font-mono text-xs text-slate-500">{job.period}</span>
                   </div>
-                  <ul className="mt-5 space-y-3">
-                    {job.points.map((point, j) => (
-                      <li key={j} className="flex gap-3 text-[15px] leading-relaxed text-slate-400">
-                        <span className="mt-[9px] size-1 shrink-0 rounded-full bg-cyan-400/70" aria-hidden />
-                        {point}
-                      </li>
-                    ))}
-                  </ul>
+                  <Highlights items={job.highlights} />
+                  {job.more && job.more.length > 0 && (
+                    <details className="group mt-5">
+                      <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 text-sm text-accent transition-colors hover:text-accent-soft [&::-webkit-details-marker]:hidden">
+                        <span className="group-open:hidden">Show {job.more.length} more</span>
+                        <span className="hidden group-open:inline">Show less</span>
+                      </summary>
+                      <div className="mt-5">
+                        <Highlights items={job.more} />
+                      </div>
+                    </details>
+                  )}
                   <div className="mt-6 flex flex-wrap gap-2">
                     {job.tech.map((t) => (
                       <Chip key={t}>{t}</Chip>
@@ -387,7 +412,7 @@ export default function Home() {
               href="/Ayush_Aggarwal_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm text-indigo-300 transition-colors hover:text-indigo-200"
+              className="inline-flex items-center gap-2 text-sm text-accent transition-colors hover:text-accent-soft"
             >
               Full history in the resume {arrowIcon}
             </a>
@@ -405,7 +430,7 @@ export default function Home() {
                 data-reveal
                 style={{ "--reveal-delay": `${i * 80}ms` } as React.CSSProperties}
               >
-                <h3 className="font-mono text-sm text-cyan-300/90">{group.group}</h3>
+                <h3 className="font-mono text-sm text-accent">{group.group}</h3>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {group.items.map((item) => (
                     <Chip key={item}>{item}</Chip>
@@ -450,16 +475,16 @@ export default function Home() {
                     <h3 className="font-semibold text-slate-100">{e.school}</h3>
                     <span className="font-mono text-xs text-slate-500">{e.period}</span>
                   </div>
-                  <p className="mt-1 text-sm text-indigo-300">{e.degree}</p>
+                  <p className="mt-1 text-sm text-accent">{e.degree}</p>
                   <p className="mt-2 text-sm leading-relaxed text-slate-400">{e.detail}</p>
                 </div>
               ))}
               <div className="card p-5" data-reveal style={{ "--reveal-delay": "200ms" } as React.CSSProperties}>
-                <h3 className="font-mono text-sm text-cyan-300/90">Recognition</h3>
+                <h3 className="font-mono text-sm text-accent">Recognition</h3>
                 <ul className="mt-3 space-y-2">
                   {recognition.map((r) => (
                     <li key={r} className="flex gap-2.5 text-sm leading-relaxed text-slate-400">
-                      <span className="mt-0.5 text-cyan-400" aria-hidden>◆</span>
+                      <span className="mt-0.5 text-accent" aria-hidden>◆</span>
                       {r}
                     </li>
                   ))}
@@ -471,7 +496,7 @@ export default function Home() {
 
         {/* ============ CONTACT ============ */}
         <section id="contact" className="scroll-mt-28 py-20 pb-32 text-center">
-          <p className="font-mono text-sm text-cyan-300" data-reveal>
+          <p className="font-mono text-sm text-accent" data-reveal>
             06 · What&apos;s next?
           </p>
           <h2
@@ -479,7 +504,7 @@ export default function Home() {
             data-reveal
             style={{ "--reveal-delay": "80ms" } as React.CSSProperties}
           >
-            Let&apos;s build something<span className="text-gradient"> great.</span>
+            Let&apos;s build something<span className="text-gradient"> great</span>
           </h2>
           <p
             className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-slate-400"
@@ -496,7 +521,7 @@ export default function Home() {
           >
             <a
               href={`mailto:${profile.email}`}
-              className="rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 px-7 py-3.5 text-sm font-semibold text-white transition-all hover:shadow-[0_0_32px_rgba(99,102,241,0.5)]"
+              className="rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-ink transition-all hover:brightness-110"
             >
               Say hello
             </a>
@@ -504,7 +529,7 @@ export default function Home() {
               href={profile.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full border border-line px-7 py-3.5 text-sm font-medium text-slate-300 transition-all hover:border-indigo-400/50 hover:text-white"
+              className="rounded-full border border-line px-7 py-3.5 text-sm font-medium text-slate-300 transition-all hover:border-accent/50 hover:text-white"
             >
               LinkedIn
             </a>

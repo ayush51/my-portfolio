@@ -56,7 +56,7 @@ export default function Nav() {
                 href={`#${id}`}
                 className={`rounded-full px-3.5 py-1.5 text-sm transition-colors ${
                   active === id
-                    ? "bg-indigo-400/10 text-indigo-300"
+                    ? "bg-accent/10 text-accent"
                     : "text-slate-400 hover:text-slate-100"
                 }`}
               >
@@ -69,7 +69,7 @@ export default function Nav() {
           href="/Ayush_Aggarwal_Resume.pdf"
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-full border border-indigo-400/40 px-4 py-1.5 text-sm font-medium text-indigo-300 transition-all hover:border-indigo-300 hover:bg-indigo-400/10 hover:shadow-[0_0_20px_rgba(129,140,248,0.25)]"
+          className="rounded-full border border-accent/40 px-4 py-1.5 text-sm font-medium text-accent transition-all hover:border-accent hover:bg-accent/10 "
         >
           Resume
         </a>

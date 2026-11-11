@@ -13,10 +13,10 @@ export const profile = {
 };
 
 export const stats = [
-  { value: "4+", label: "years of engineering experience" },
-  { value: "SE II", label: "promoted at Ellucian in 2026" },
-  { value: "Node 22", label: "runtime upgrade I led across services" },
-  { value: "41%", label: "lower query time, Athena vs RDS POC (2,000-row sample)" },
+  { value: "~50", label: "countries of client data harmonized" },
+  { value: "40+", label: "services upgraded to Node 22" },
+  { value: "Dozens", label: "of college users led through UAT" },
+  { value: "50%", label: "less manual ops effort via automation" },
 ];
 
 export const skills: { group: string; items: string[] }[] = [
@@ -39,7 +39,8 @@ export type Job = {
   location: string;
   period: string;
   current?: boolean;
-  points: string[];
+  highlights: { title: string; text: string }[];
+  more?: { title: string; text: string }[]; // shown behind "Show more"
   tech: string[];
 };
 
@@ -50,15 +51,17 @@ export const experience: Job[] = [
     location: "Reston, VA",
     period: "Jun 2024 - Present",
     current: true,
-    points: [
-      "Owned the Metabase-Athena lakehouse integration end to end: worked with the Metabase team to resolve JDBC and metadata-sync issues, and implemented database routing (a router database plus hidden destination databases with separate IAM credentials, chosen per user by a login attribute).",
-      "Onboarded customers onto Metabase reporting and led user acceptance testing (UAT) with dozens of college users.",
-      "Co-designed role-based lakehouse data access with AWS SMEs: a login resolver that unions a user's app roles into a permission package, mapped to IAM credentials and Lake Formation grants, with DynamoDB tracking and SSM credentials.",
-      "Built backend services (Node.js, AWS Lambda) for Ellucian's agentic chat interface, now shipped to customers: a permission-aware layer that calls existing reporting APIs, resolves each user's roles through the lakehouse routing and access model, and returns structured results the agent turns into conversational insights.",
-      "Identified long-lived IAM credentials as a security and maintenance risk, won alignment from senior architects, and built an automated credential-rotation service (Jenkins, DynamoDB metadata, scheduler, validation) that is deployed and running.",
-      "Led the Node.js 22 upgrade across 40+ services (runtime, dependency and CI compatibility), with automated validation.",
-      "Contributed to the streaming ingestion platform (Python, Kafka/MSK, Flink): shipped DII transformation of nested documents into relational tables, added _document_key indexes on child tables, and built a source-type allowlist with a CI validation gate that fails builds on unsupported config.",
-      "Built a Lambda-based Datadog log-triage pipeline that cut manual operational effort by 50%, and shipped accessible (WCAG, right-to-left) React reporting features.",
+    highlights: [
+      { title: "Customer UAT", text: "Onboarded customers onto Metabase reporting and led UAT with dozens of college users." },
+      { title: "Agentic chat backend", text: "Built permission-aware services behind Ellucian's shipped agentic chat interface." },
+      { title: "Metabase-Athena integration", text: "Owned it end to end, with per-user database routing on separate IAM credentials." },
+      { title: "Role-based data access", text: "Co-designed how app roles map to Lake Formation grants and IAM credentials." },
+    ],
+    more: [
+      { title: "Credential rotation", text: "Proposed and built automated IAM credential rotation, now deployed." },
+      { title: "Node.js 22 upgrade", text: "Led the upgrade across 40+ services, with automated validation." },
+      { title: "Streaming ingestion", text: "Shipped nested-document transforms and a CI gate that rejects bad source config." },
+      { title: "Operations automation", text: "A Datadog triage pipeline cut manual operational effort by 50%." },
     ],
     tech: ["AWS", "Athena", "Lake Formation", "IAM", "DynamoDB", "Metabase", "Node.js", "Python", "Kafka", "Terraform", "Jenkins", "React"],
   },
@@ -67,8 +70,8 @@ export const experience: Job[] = [
     role: "Software Engineer Intern",
     location: "Reston, VA",
     period: "May 2023 - Aug 2023",
-    points: [
-      "Built a self-service Insights Card template for Metabase embeds (React, Lambda, Terraform), supporting 500+ assets.",
+    highlights: [
+      { title: "Insights Card template", text: "Self-service Metabase embed template (React, Lambda, Terraform) supporting 500+ assets." },
     ],
     tech: ["React", "AWS Lambda", "Terraform", "Metabase"],
   },
@@ -77,10 +80,10 @@ export const experience: Job[] = [
     role: "Software Engineer",
     location: "Gurgaon, India",
     period: "Aug 2020 - Jun 2022",
-    points: [
-      "On a global pharma transparency platform, harmonized data from ~50 countries (differing formats and languages) into one model using per-country mapping and validation rules (Python, SQL on Athena/Redshift, Parquet on S3), giving client teams a single global view for KPI dashboards and cutting the time users spent on KPI reporting and manual reconciliation.",
-      "Migrated legacy MySQL/Oracle pipelines to AWS (S3, Athena, Redshift), improving query performance ~30% and integration throughput ~20% with partitioning and Parquet; built data apps and APIs that pushed modeled data into downstream tools, with orchestration, retries and monitoring.",
-      "Worked directly with dozens of client users and stakeholders: trained them on the dashboards, troubleshot data issues they reported as production support, and kept scheduled syncs reliable.",
+    highlights: [
+      { title: "Global data harmonization", text: "Unified data from ~50 countries into one model feeding client KPI dashboards." },
+      { title: "Client support", text: "Trained dozens of client users and troubleshot data issues as production support." },
+      { title: "AWS migration", text: "Moved MySQL/Oracle pipelines to AWS: ~30% faster queries, ~20% more throughput." },
     ],
     tech: ["AWS", "S3", "Athena", "Redshift", "Python", "SQL", "Parquet"],
   },
@@ -100,7 +103,6 @@ export type Project = {
   link?: string; // live site
   repo?: string; // omit for private repos
   badge: string;
-  accent: string; // gradient for the card's visual header
   glyph: string;  // mono glyph shown when there are no screenshots
   shots?: { src: string; alt: string; w: number; h: number }[];
   shotKind?: "phone" | "desktop";
@@ -120,7 +122,6 @@ export const projects: Project[] = [
     tech: ["Next.js 16", "TypeScript", "Supabase", "Postgres RLS", "Web Push", "Playwright"],
     link: "https://roomies-vert.vercel.app",
     repo: "https://github.com/ayush51/social-rommies-hub",
-    accent: "linear-gradient(135deg, rgba(129,140,248,0.28), rgba(168,85,247,0.15))",
     glyph: "01",
     shotKind: "phone",
     shots: [
@@ -142,7 +143,6 @@ export const projects: Project[] = [
     tech: ["Next.js 15", "TypeScript", "Prisma", "Postgres", "SEC EDGAR", "shadcn/ui"],
     link: "https://thesistrack-eight.vercel.app",
     repo: "https://github.com/ayush51/stocklens",
-    accent: "linear-gradient(135deg, rgba(34,211,238,0.25), rgba(99,102,241,0.18))",
     glyph: "02",
     shotKind: "desktop",
     shots: [
@@ -162,7 +162,6 @@ export const projects: Project[] = [
     tech: ["Next.js", "TypeScript", "Supabase", "Tailwind", "shadcn/ui", "Motion"],
     link: "https://sidequestdmv.vercel.app",
     repo: "https://github.com/ayush51/sidequest",
-    accent: "linear-gradient(135deg, rgba(190,242,100,0.22), rgba(34,211,238,0.12))",
     glyph: "03",
     shotKind: "phone",
     shots: [
@@ -183,7 +182,6 @@ export const projects: Project[] = [
     tech: ["Next.js", "Gemini API", "Supabase", "Web Push", "Vercel"],
     link: "https://drink-tracker-lime.vercel.app",
     repo: "https://github.com/ayush51/drink-tracker",
-    accent: "linear-gradient(135deg, rgba(251,146,60,0.28), rgba(244,114,182,0.15))",
     glyph: "04",
     shotKind: "phone",
     shots: [
@@ -203,18 +201,16 @@ export const projects: Project[] = [
     ],
     tech: ["Python", "GitHub Actions", "Cloudflare Workers", "REST APIs"],
     repo: "https://github.com/ayush51/premarket-briefing",
-    accent: "linear-gradient(135deg, rgba(148,163,184,0.22), rgba(34,211,238,0.14))",
     glyph: "05",
   },
   {
     title: "Automated Lecture Generation",
     badge: "NLP · LLMs",
     description:
-      "Used NLP and LLMs to generate automated lectures, reducing course preparation time by 40% and boosting educator efficiency.",
+      "Team project that used NLP and LLMs to generate automated lectures, reducing course preparation time by 40%.",
     highlights: [],
     tech: ["Python", "LLMs", "NLP"],
     repo: "https://github.com/ayush51/EducatorAlly-AutomatedLectureGenerator",
-    accent: "linear-gradient(135deg, rgba(244,114,182,0.22), rgba(129,140,248,0.15))",
     glyph: "06",
   },
 ];

@@ -2,9 +2,8 @@
 
 import { useEffect, useRef } from "react";
 
-/** Scroll-reveal for [data-reveal] elements + mouse-following glow + scroll progress bar. */
+/** Scroll-reveal for [data-reveal] elements + scroll progress bar. */
 export default function Effects() {
-  const glowRef = useRef<HTMLDivElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -21,12 +20,6 @@ export default function Effects() {
     );
     document.querySelectorAll("[data-reveal]").forEach((el) => observer.observe(el));
 
-    const onMove = (e: PointerEvent) => {
-      if (glowRef.current) {
-        glowRef.current.style.transform = `translate(${e.clientX - 250}px, ${e.clientY - 250}px)`;
-      }
-    };
-
     const onScroll = () => {
       if (barRef.current) {
         const max = document.documentElement.scrollHeight - window.innerHeight;
@@ -34,33 +27,14 @@ export default function Effects() {
       }
     };
 
-    const fine = window.matchMedia("(pointer: fine)").matches;
-    if (fine) window.addEventListener("pointermove", onMove, { passive: true });
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
 
     return () => {
       observer.disconnect();
-      if (fine) window.removeEventListener("pointermove", onMove);
       window.removeEventListener("scroll", onScroll);
     };
   }, []);
 
-  return (
-    <>
-      <div
-        ref={barRef}
-        className="fixed top-0 left-0 z-[60] h-[2px] bg-gradient-to-r from-indigo-400 to-cyan-400"
-        aria-hidden
-      />
-      <div
-        ref={glowRef}
-        aria-hidden
-        className="pointer-events-none fixed top-0 left-0 z-0 hidden size-[500px] rounded-full opacity-60 md:block"
-        style={{
-          background: "radial-gradient(circle, rgba(99,102,241,0.09), transparent 60%)",
-        }}
-      />
-    </>
-  );
+  return <div ref={barRef} className="fixed top-0 left-0 z-[60] h-[2px] bg-accent" aria-hidden />;
 }

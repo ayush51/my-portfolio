@@ -15,13 +15,11 @@ export default function OpenGraphImage() {
           flexDirection: "column",
           justifyContent: "center",
           padding: "80px",
-          background: "#05060b",
-          backgroundImage:
-            "radial-gradient(circle at 20% 10%, rgba(99,102,241,0.35), transparent 50%), radial-gradient(circle at 85% 85%, rgba(34,211,238,0.25), transparent 50%)",
+          background: "#0e0b0b",
           fontFamily: "sans-serif",
         }}
       >
-        <div style={{ display: "flex", color: "#22d3ee", fontSize: 28, marginBottom: 24 }}>
+        <div style={{ display: "flex", color: "#ff5b4a", fontSize: 28, marginBottom: 24 }}>
           ~/ayush
         </div>
         <div
@@ -29,7 +27,7 @@ export default function OpenGraphImage() {
             display: "flex",
             fontSize: 84,
             fontWeight: 700,
-            color: "#f8fafc",
+            color: "#f4edeb",
             letterSpacing: "-2px",
           }}
         >
@@ -39,7 +37,7 @@ export default function OpenGraphImage() {
           style={{
             display: "flex",
             fontSize: 38,
-            color: "#94a3b8",
+            color: "#a89b98",
             marginTop: 20,
           }}
         >
@@ -54,7 +52,7 @@ export default function OpenGraphImage() {
                 padding: "10px 24px",
                 borderRadius: 9999,
                 border: "1px solid rgba(148,163,184,0.35)",
-                color: "#c7d2fe",
+                color: "#ff8a7d",
                 fontSize: 24,
               }}
             >
@@ -66,7 +64,7 @@ export default function OpenGraphImage() {
           style={{
             display: "flex",
             marginTop: 56,
-            color: "#475569",
+            color: "#8c807d",
             fontSize: 24,
           }}
         >
