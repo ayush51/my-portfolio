@@ -8,7 +8,7 @@ export const profile = {
   github: "https://github.com/ayush51",
   headline: "Full-stack engineer, backend-leaning.",
   tagline:
-    "4+ years building AWS backend and data systems at Ellucian and ZS — plus full-stack apps in React, Next.js and Supabase that I design and ship end to end.",
+    "4+ years building AWS backend and data systems at Ellucian and ZS, with hands-on customer work (onboarding, UAT, data integration), plus full-stack apps in React, Next.js and Supabase that I design and ship end to end.",
   availability: "Open to roles anywhere in the US",
 };
 
@@ -21,7 +21,7 @@ export const stats = [
 
 export const skills: { group: string; items: string[] }[] = [
   { group: "Languages", items: ["Python", "TypeScript", "JavaScript", "Java", "C/C++", "SQL", "Bash"] },
-  { group: "Backend & Data", items: ["Node.js", "REST APIs", "Data Pipelines", "Athena", "Iceberg", "Metabase"] },
+  { group: "Backend & Data", items: ["Node.js", "REST APIs", "Data Pipelines", "Athena", "Metabase"] },
   { group: "Cloud", items: ["AWS Lambda", "S3", "IAM", "Lake Formation", "DynamoDB", "SQS / SNS", "Terraform", "Docker"] },
   { group: "Frontend", items: ["React", "Next.js", "HTML / CSS", "D3.js"] },
   { group: "Tools", items: ["Git", "Jenkins", "Datadog", "Playwright", "Figma"] },
@@ -29,7 +29,7 @@ export const skills: { group: string; items: string[] }[] = [
 
 export const marquee = [
   "AWS", "Node.js", "Python", "React", "TypeScript", "Terraform", "Athena",
-  "Iceberg", "Lambda", "DynamoDB", "Lake Formation", "Docker", "Playwright",
+  "Lambda", "DynamoDB", "Lake Formation", "Docker", "Playwright",
   "Datadog", "SQS", "Jenkins", "Metabase",
 ];
 
@@ -48,15 +48,17 @@ export const experience: Job[] = [
     company: "Ellucian",
     role: "Software Engineer II",
     location: "Reston, VA",
-    period: "Jun 2024 — Present",
+    period: "Jun 2024 - Present",
     current: true,
     points: [
-      "Owned the Metabase–Athena lakehouse integration end to end: got Metabase running on Athena, worked through connectivity, JDBC and metadata-sync issues with the Metabase team, and implemented database routing — one router database plus hidden destination databases, each with its own IAM credentials, chosen per user by a login attribute.",
-      "Co-designed role-based access to lakehouse data: a login resolver that unions a user's application roles into a permission package, mapped to IAM credentials and Lake Formation grants, with DynamoDB tracking and credentials held in SSM.",
-      "Flagged long-lived IAM credentials as a security and maintenance risk, won alignment from senior architects, and built an automated rotation workflow with Jenkins, DynamoDB metadata, a scheduler, and validation.",
-      "Led the Node.js 22 upgrade across services, covering runtime, dependency and CI compatibility with automated validation.",
-      "Contributing to the streaming ingestion platform (Python, Kafka/MSK, Flink): built a centralized source-type allowlist with a validation gate so unsupported config values fail early, and materializer work for nested-document tables.",
-      "Built React and TypeScript reporting features with WCAG accessibility and right-to-left language support, plus Lambda-based Datadog triage automation that cut manual operational effort by 50%.",
+      "Owned the Metabase-Athena lakehouse integration end to end: worked with the Metabase team to resolve JDBC and metadata-sync issues, and implemented database routing (a router database plus hidden destination databases with separate IAM credentials, chosen per user by a login attribute).",
+      "Onboarded customers onto Metabase reporting and led user acceptance testing (UAT) with dozens of college users.",
+      "Co-designed role-based lakehouse data access with AWS SMEs: a login resolver that unions a user's app roles into a permission package, mapped to IAM credentials and Lake Formation grants, with DynamoDB tracking and SSM credentials.",
+      "Built backend services (Node.js, AWS Lambda) for Ellucian's agentic chat interface, now shipped to customers: a permission-aware layer that calls existing reporting APIs, resolves each user's roles through the lakehouse routing and access model, and returns structured results the agent turns into conversational insights.",
+      "Identified long-lived IAM credentials as a security and maintenance risk, won alignment from senior architects, and built an automated credential-rotation service (Jenkins, DynamoDB metadata, scheduler, validation) that is deployed and running.",
+      "Led the Node.js 22 upgrade across 40+ services (runtime, dependency and CI compatibility), with automated validation.",
+      "Contributed to the streaming ingestion platform (Python, Kafka/MSK, Flink): shipped DII transformation of nested documents into relational tables, added _document_key indexes on child tables, and built a source-type allowlist with a CI validation gate that fails builds on unsupported config.",
+      "Built a Lambda-based Datadog log-triage pipeline that cut manual operational effort by 50%, and shipped accessible (WCAG, right-to-left) React reporting features.",
     ],
     tech: ["AWS", "Athena", "Lake Formation", "IAM", "DynamoDB", "Metabase", "Node.js", "Python", "Kafka", "Terraform", "Jenkins", "React"],
   },
@@ -64,21 +66,21 @@ export const experience: Job[] = [
     company: "Ellucian",
     role: "Software Engineer Intern",
     location: "Reston, VA",
-    period: "May 2023 — Aug 2023",
+    period: "May 2023 - Aug 2023",
     points: [
-      "Built a self-service Insights Card platform with React, AWS Lambda, and Terraform-managed APIs — enabling 57 colleges to create analytics dashboards without engineering support.",
-      "Implemented WebSocket APIs and SQS messaging backed by DynamoDB streams to deliver real-time pricing and availability updates.",
+      "Built a self-service Insights Card template for Metabase embeds (React, Lambda, Terraform), supporting 500+ assets.",
     ],
-    tech: ["React", "AWS Lambda", "Terraform", "WebSockets", "SQS", "DynamoDB"],
+    tech: ["React", "AWS Lambda", "Terraform", "Metabase"],
   },
   {
     company: "ZS Associates",
     role: "Software Engineer",
     location: "Gurgaon, India",
-    period: "Aug 2020 — Jun 2022",
+    period: "Aug 2020 - Jun 2022",
     points: [
-      "Migrated legacy MySQL/Oracle pipelines to AWS (S3, Athena, Redshift) — improving query performance ~30% and integration throughput ~20% with partitioning and Parquet.",
-      "Built data apps and APIs pushing modeled data into downstream tools, with job orchestration, retries, and monitoring for reliable syncs.",
+      "On a global pharma transparency platform, harmonized data from ~50 countries (differing formats and languages) into one model using per-country mapping and validation rules (Python, SQL on Athena/Redshift, Parquet on S3), giving client teams a single global view for KPI dashboards and cutting the time users spent on KPI reporting and manual reconciliation.",
+      "Migrated legacy MySQL/Oracle pipelines to AWS (S3, Athena, Redshift), improving query performance ~30% and integration throughput ~20% with partitioning and Parquet; built data apps and APIs that pushed modeled data into downstream tools, with orchestration, retries and monitoring.",
+      "Worked directly with dozens of client users and stakeholders: trained them on the dashboards, troubleshot data issues they reported as production support, and kept scheduled syncs reliable.",
     ],
     tech: ["AWS", "S3", "Athena", "Redshift", "Python", "SQL", "Parquet"],
   },
@@ -134,7 +136,7 @@ export const projects: Project[] = [
       "Investment research dashboard that ties a portfolio to the thesis behind each position, with filings, alerts, and a signal-convergence research tool.",
     highlights: [
       "Brokerage integration is read-only by design: the provider interface has no write method, so it's enforced by the type system.",
-      "Signal Convergence cross-references SEC EDGAR insider filings with USAspending.gov contract awards, with entity resolution and a transparent 0–100 score.",
+      "Signal Convergence cross-references SEC EDGAR insider filings with USAspending.gov contract awards, with entity resolution and a transparent 0 to 100 score.",
       "Feature-based architecture with provider contracts for every external data source.",
     ],
     tech: ["Next.js 15", "TypeScript", "Prisma", "Postgres", "SEC EDGAR", "shadcn/ui"],
@@ -221,20 +223,20 @@ export const education = [
   {
     school: "Virginia Tech",
     degree: "M.Eng, Computer Science",
-    period: "2022 — 2024",
-    detail: "GPA 3.96/4 · Graduate Research Assistant — AI in Design, UI/UX, Full-Stack Development",
+    period: "2022 - 2024",
+    detail: "GPA 3.96/4 · Graduate Research Assistant: AI in Design, UI/UX, Full-Stack Development",
   },
   {
     school: "GGSIP University, Delhi",
     degree: "B.Tech, Information Technology",
-    period: "2016 — 2020",
+    period: "2016 - 2020",
     detail: "GPA 9.12/10 · First rank in University Examination 2017 · DSA mentor for two years",
   },
 ];
 
 export const recognition = [
-  "“Impact and Recognition” Award — for outstanding client impact",
-  "“Celebrating Impact — Best Team” Award",
+  "“Impact and Recognition” Award, for outstanding client impact",
+  "“Celebrating Impact - Best Team” Award",
   "First rank, University Examination 2017",
   "Data Structures & Algorithms mentor for two years",
 ];
@@ -272,7 +274,7 @@ export const caseStudy = {
     {
       problem: "How do you know it still works?",
       decision:
-        "RLS and rollback tests on the database, plus a Playwright suite across 5 screen sizes. Tab pages are prefetched and cached, which brought tab switches down to 31–64 ms.",
+        "RLS and rollback tests on the database, plus a Playwright suite across 5 screen sizes. Tab pages are prefetched and cached, which brought tab switches down to 31 to 64 ms.",
     },
   ],
 };

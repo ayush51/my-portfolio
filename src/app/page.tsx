@@ -424,14 +424,14 @@ export default function Home() {
               <p>
                 I&apos;m a software engineer with{" "}
                 <span className="text-slate-200">4+ years of experience</span> across backend,
-                platform, and cloud work — currently at{" "}
+                platform, and cloud work, currently at{" "}
                 <span className="text-slate-200">Ellucian</span>, where I own the
-                Metabase–Athena integration and help build the role-to-data access that sits
+                Metabase-Athena integration and help build the role-to-data access that sits
                 behind lakehouse reporting.
               </p>
               <p>
-                I&apos;m full-stack by range — React and TypeScript on the front, Python and
-                Node.js APIs behind it — but{" "}
+                I&apos;m full-stack by range: React and TypeScript on the front, Python and
+                Node.js APIs behind it, but{" "}
                 <span className="text-slate-200">backend and cloud infrastructure</span> is
                 where I go deepest. I like problems at the intersection of data,
                 infrastructure, and product, and I have a habit of automating away whatever
@@ -487,7 +487,7 @@ export default function Home() {
             style={{ "--reveal-delay": "160ms" } as React.CSSProperties}
           >
             Whether it&apos;s backend architecture, cloud infrastructure, or just a good
-            engineering conversation — my inbox is always open.
+            engineering conversation, my inbox is always open.
           </p>
           <div
             className="mt-9 flex items-center justify-center gap-4"

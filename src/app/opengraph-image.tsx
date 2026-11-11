@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Ayush Aggarwal — Software Engineer";
+export const alt = "Ayush Aggarwal | Software Engineer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -43,7 +43,7 @@ export default function OpenGraphImage() {
             marginTop: 20,
           }}
         >
-          Software Engineer II — Cloud Infrastructure & Data Platforms
+          Software Engineer II | Cloud Infrastructure & Data Platforms
         </div>
         <div style={{ display: "flex", gap: 16, marginTop: 48 }}>
           {["AWS", "Node.js", "Python", "React", "Terraform"].map((t) => (
